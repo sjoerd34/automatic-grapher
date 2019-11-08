@@ -24,6 +24,9 @@ for i in range(10,30):
 '''
 
 
+minutes = [5, 10, 20, 30, 60]
+enzym_activity = [0.000463, 0.000717, 0.000616, 0.000654, 0.000679]
+
 number = Decimal('0.00000212')
 
 
@@ -57,8 +60,13 @@ def auto_scaler(ind_var, ticks):
         b = dist_per_tick.quantize(Decimal(str(10**(dist_per_tick.adjusted()))), rounding=ROUND_UP)
 
     lower_bound = b * (Decimal(min(ind_var)) // b)
-    upper_bound = b * (1 + Decimal(max(ind_var)) // b)
+    if Decimal(max(ind_var)) % b == 0:
+	    upper_bound = max(ind_var)
+    else: 
+        upper_bound = b * (1 + Decimal(max(ind_var)) // b)
+    
     print(lower_bound)
     print(upper_bound)
+    print(b)
 
-auto_scaler(ph, 18)
+auto_scaler(minutes, 28)
